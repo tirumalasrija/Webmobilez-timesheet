@@ -1,0 +1,50 @@
+
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (click) ="dayHeaderClicked($event)"
+
+      >
+        Previous Week
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+        (click) ="dayHeaderClicked($event)"
+      >
+        Current Week
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+
+</div>
+<ngx-dropzone (change)="onSelect($event)" [disabled]="false"  [multiple]='false' [disableClick]='false' >
+
+  <ngx-dropzone-label >Drop it, Here!</ngx-dropzone-label>
+
+  <ngx-dropzone-preview *ngFor="let f of documents" [removable]="timeSheetEditable" (removed)="onRemove(f)">
+
+    <ngx-dropzone-label>{{ f.doucmentName }} <a  target="_blank" (click)="onSpanClick($event)" href="{{path}}{{f.doucmentName}}" download>Download</a></ngx-dropzone-label>
+
+  </ngx-dropzone-preview>
+
+</ngx-dropzone>
+
+
+
+
+
+
+
+
+

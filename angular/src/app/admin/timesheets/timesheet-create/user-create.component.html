@@ -1,0 +1,100 @@
+<p-toast position="bottom-right"></p-toast>
+<div class="row">
+        <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <!-- <h5 class="card-title">Edit Profile</h5> -->
+                  </div>
+                  <div class="card-body">
+                    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+                      <div class="row">
+
+                          <div class="col-md-12">
+                            <div class="form-group">
+                            <label>Duration</label>
+                     <input class="form-control"  type="number" min="1" max="15" placeholder="Duration" formControlName="duration">
+                 <div *ngIf="duration.invalid && (duration.dirty || duration.touched)"
+                                    class="form-text text-muted">
+                                  <div *ngIf="duration.errors?.required">
+                                    Duration is required.
+                                  </div>
+                                  <div *ngIf="duration.errors?.min">Enter Min 1 hour Duration </div>
+                                  <div *ngIf="duration.errors?.max">Enter Max 15 hour Duration only </div>
+                            </div>
+                            <small id="emailHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.duration }}</small>
+
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+<label>Date</label>
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <input [max]="tomorrow" [min]="yesterday" [matDatepicker]="picker" class="form-control" placeholder="Choose a date of birth" formControlName="date" id="date"
+                                readonly (click)="picker.open()">
+
+                            <mat-datepicker #picker></mat-datepicker>
+
+
+                          <div *ngIf="date.invalid && (date.dirty || date.touched)"
+                                  class="form-text text-muted">
+                                <div *ngIf="date.errors?.required">
+                                  Date is required.
+                                </div>
+                          </div>
+                          <small id="dateHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.date }}</small>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                        <label>Assignment</label>
+                      <select  formControlName="assignment"  pTooltip="Choose your Assignment" tooltipPosition="top" class="form-control"  required>
+                        <option value="Mainframe Developer" selected="selected">Mainframe Developer</option>
+                      </select>
+
+                        <div *ngIf="assignment.invalid && (assignment.dirty || assignment.touched)"
+                                class="form-text text-muted">
+                              <div *ngIf="assignment.errors?.required">
+                                Assignment is required.
+                              </div>
+                        </div>
+                        <small id="assignmentHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.assignment }}</small>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                      <label>Service Code</label>
+                    <select  formControlName="serviceCode"  pTooltip="Choose your Service code" tooltipPosition="top" class="form-control"  required>
+                      <option value="Regular" selected="selected">Regular</option>
+                    </select>
+
+                      <div *ngIf="serviceCode.invalid && (serviceCode.dirty || serviceCode.touched)"
+                              class="form-text text-muted">
+                            <div *ngIf="serviceCode.errors?.required">
+                              Assignment is required.
+                            </div>
+                      </div>
+                      <small id="serviceCodeHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.serviceCode }}</small>
+                      </div>
+                  </div>
+                </div>
+
+                        <div class="row">
+                          <div class="update ml-auto mr-auto">
+                            <button   type="submit"   class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Submit</button>
+                          </div>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+</div>
+
+
+
+

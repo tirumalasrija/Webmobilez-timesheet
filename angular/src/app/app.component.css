@@ -1,0 +1,86 @@
+
+            @media(max-width:767.9px){
+                [role="main"] .py-1{
+                    font-size: 1.5rem;
+                }
+                [role="main"] mark{
+                    background-color: #ff0;
+                    padding: 0 .6rem;
+                }
+            }
+            .navbar-brand img{
+                width:250px;
+            }
+            footer {
+                padding: 20px 0;
+            }
+            .bg-darkColor {
+                background-color: #fff!important;
+            }
+            .btn.btn-success.openpopup{
+                font-size:14px;
+                White-space:nowrap;
+            }
+            .table-bordered thead td, .table-bordered thead th {
+
+                color: #fff;
+                background-color: #428bca;
+            }
+
+            /* our code */
+            /*
+            *
+            * ==========================================
+            * CUSTOM UTIL CLASSES
+            * ==========================================
+            *
+            */
+            table {
+
+                border-collapse: collapse;
+                width:100%
+            }
+
+
+            td,th{
+                text-align: left;
+                border:1px solid #e2e2e2;
+            }
+
+        .btn-web {
+    color: #fff;
+    background-color: #d94c27;
+    border-color: #d94c27;
+}
+.btn-web:hover {
+    color: #fff;
+    text-decoration: none;
+    }
+ .select2-container .select2-selection--single{
+    height:34px !important;
+}
+.select2-container--default .select2-selection--single{
+         border: 1px solid #ccc !important;
+     border-radius: 0px !important;
+}
+.select2-selection__rendered{
+    padding: 0 !important;
+        font-size: 1rem !important;
+    font-weight: 400 !important;
+
+}
+
+
+#digit_clock_time {
+  font-family: 'Work Sans', sans-serif;
+  color: #d94c27;
+  text-align: center;
+  padding-top: 20px;
+}
+#digit_clock_date {
+  font-family: 'Work Sans', sans-serif;
+  color: #d94c27;
+  text-align: center;
+
+
+}

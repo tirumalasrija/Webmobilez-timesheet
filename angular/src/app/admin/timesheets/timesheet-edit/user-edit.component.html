@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-md-12">
+            <h4 class="remove-margin">Edit TimeSheet Detail </h4>
+            <div class="card">
+              <div class="card-header">
+                <!-- <h5 class="card-title">Edit Profile</h5> -->
+              </div>
+              <div class="card-body">
+                <form [formGroup]="updateUser" (ngSubmit)="updateUserDetails()">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                            <input type="hidden" name="_method" value="PUT">
+                          <label>Duration</label>
+                          <input type="number" formControlName="duration" class="form-control" placeholder="Duration" required>
+                          <div *ngIf="duration.invalid && (duration.dirty || duration.touched)"
+                                  class="form-text text-muted">
+                                <div *ngIf="duration.errors?.required">
+                                  Name is required.
+                                </div>
+
+                          </div>
+                          <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.duration }}</small>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                        <label>Date</label>
+                        <input type="date"  pTooltip="Choose Date of added timesheet" tooltipPosition="top" formControlName="tdate" class="form-control" placeholder="Date" required>
+                        <div *ngIf="tdate.invalid && (tdate.dirty || tdate.touched)"
+                                class="form-text text-muted">
+                              <div *ngIf="tdate.errors?.required">
+                                Date is required.
+                              </div>
+                        </div>
+                        <small id="tdateHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.tdate }}</small>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                      <label>Assignment</label>
+                    <select  formControlName="assignment"  pTooltip="Choose your Assignment" tooltipPosition="top" class="form-control"  required>
+                      <option value="J2EE" selected="selected">J2EE</option>
+                    </select>
+
+                      <div *ngIf="assignment.invalid && (assignment.dirty || assignment.touched)"
+                              class="form-text text-muted">
+                            <div *ngIf="assignment.errors?.required">
+                              Assignment is required.
+                            </div>
+                      </div>
+                      <small id="assignmentHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.assignment }}</small>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                    <label>Service Code</label>
+                  <select  formControlName="serviceCode"  pTooltip="Choose your Service code" tooltipPosition="top" class="form-control"  required>
+                    <option value="Regular" selected="selected">Regular</option>
+                  </select>
+
+                    <div *ngIf="serviceCode.invalid && (serviceCode.dirty || serviceCode.touched)"
+                            class="form-text text-muted">
+                          <div *ngIf="serviceCode.errors?.required">
+                            Assignment is required.
+                          </div>
+                    </div>
+                    <small id="serviceCodeHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{ serverErrors.serviceCode }}</small>
+                    </div>
+                </div>
+              </div>
+                    <div class="row">
+                      <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary btn-round" [disabled]="!updateUser.valid">Update</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+</div>
