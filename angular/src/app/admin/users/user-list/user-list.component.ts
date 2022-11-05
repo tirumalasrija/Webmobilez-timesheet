@@ -42,7 +42,17 @@ export class UserListComponent implements OnInit {
   timeSheets: Array<object> = [];
 
   loading: boolean = true;
-
+  displayBasic: boolean;
+fullname:string;
+contactNumber:string;
+emergencyNumber:string;
+emrgencyContactPerson:string;
+relationContactPerson:string;
+address:string;
+urate:number;
+email:string;
+paymentType: string;
+paymentMode:string;
 
   constructor( private fb: FormBuilder,private messageService: MessageService, private route: ActivatedRoute, private userRest: UserRestService,
      private router: Router) { }
@@ -50,16 +60,29 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
 
     this.userRest.getUsers().subscribe(
-      (response) => { console.log(this.timeSheets = response.user); this.loading = false; },
+      (response) => {  this.timeSheets = response.user; this.loading = false; },
       (error) => { console.log(error) }
     );
 
   }
+  showBasicDialog(event) {
+    this.displayBasic = true;
+    this.fullname= event.name +' '+event.lastName;
+    this.contactNumber= event.contactNumber;
+    this.emergencyNumber= event.emergencyNumber;
+    this.emrgencyContactPerson= event.emrgencyContactPerson;
+    this.relationContactPerson= event.relationContactPerson;
+    this.address= event.address;
+    this.urate= event.rate;
+    this.email= event.email;
+    this.paymentType= event.paymentType;
+    this.paymentMode= event.paymentMode;
 
+  }
   deleteUser(id: number) {
     if(confirm("Are you sure to delete ")) {
       this.userRest.deleteUser(id).subscribe(
-        (response) => console.log(response),
+        (response) => {this.timeSheets = response.user },
         (error) => console.log(error)
       );
     }

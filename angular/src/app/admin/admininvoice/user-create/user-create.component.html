@@ -1,0 +1,144 @@
+<p-dialog header="Invoice" [(visible)]="displayBasic" [baseZIndex]="10000">
+
+  <div class="table-responsive table-bordered" id="tablecontent">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="3">Customer/Client Name<br /></th>
+                <th colspan="2">Invoice number<br />{{registerForm.value.invoiceNumber}}</th>
+                <th>Date :{{registerForm.value.date}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"><strong>WebmobileZ/ARI Fleet</strong><br /><br />
+                  Address:  {{users.address}}, {{users.address1}}  {{users.state}}  {{users.city}}  {{users.zipcode}}<br /></td>
+                <td colspan="3"></td>
+
+            </tr>
+            <tr>
+                <td rowspan> SR</td>
+                <td class="text-right" colspan="2"><strong>Description of services</strong></td>
+                <td rowspan>Hours</td>
+                <td rowspan>Rate</td>
+                <td rowspan>Amount</td>
+
+            </tr>
+            <tr>
+              <td rowspan> 1</td>
+              <td class="text-right" colspan="2">{{registerForm.value.services}}</td>
+              <td rowspan>{{registerForm.value.hours}}</td>
+              <td rowspan>{{registerForm.value.rate}}</td>
+              <td rowspan>{{registerForm.value.amount}}</td>
+          </tr>
+          <tr>
+            <td rowspan colspan="6" height="200">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Total Amount</th>
+                                <th>{{registerForm.value.amount}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Signature</td>
+                                <td> <img [src]="signatureImage" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Print Name</td>
+                                <td>{{registerForm.value.printName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+  </div>
+  <button (click)="generatePDF()">Submit Invoice</button>
+</p-dialog>
+
+<div class="table-responsive table-bordered" id="tablecontent">
+  <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+  <table class="table table-bordered">
+      <thead>
+          <tr>
+              <th colspan="3">Customer/Client Name<br /></th>
+              <th colspan="2">Invoice number<br /><input type="text" colspan="" formControlName="invoiceNumber" class="form-control" disabled></th>
+              <th>Date :<input type="date" [ngModel]="BDate | date:'yyyy-MM-dd'"  class="form-control" formControlName="date" ></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td colspan="3"><strong>WebmobileZ/ARI Fleet</strong><br /><br />
+                Address:  {{users.address}}, {{users.address1}}  {{users.state}}  {{users.city}}  {{users.zipcode}}<br /></td>
+              <td colspan="3"></td>
+
+          </tr>
+          <tr>
+              <td rowspan> SR</td>
+              <td class="text-right" colspan="2"><strong>Description of services</strong></td>
+              <td rowspan>Hours</td>
+              <td rowspan>Rate</td>
+              <td rowspan>Amount</td>
+
+          </tr>
+          <tr>
+            <td rowspan> 1</td>
+            <td class="text-right" colspan="2"><textarea class="form-control" formControlName="services"></textarea></td>
+            <td rowspan><input type="number" formControlName="hours" class="form-control"></td>
+            <td rowspan><input type="number" formControlName="rate" class="form-control" disabled></td>
+            <td rowspan><input type="number" formControlName="amount" class="form-control" disabled></td>
+        </tr>
+
+        <tr>
+          <td rowspan colspan="6" height="200">
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th></th>
+                              <th>Total Amount</th>
+                              <th>{{registerForm.value.amount}}</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td></td>
+                              <td>Signature</td>
+                              <td> <img [src]="signatureImage" /> <button (click)="onSave($event)">Add Signature</button></td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td>Print Name</td>
+                              <td><input type="text" formControlName="printName" class="form-control"></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </td>
+      </tr>
+      </tbody>
+  </table>
+  </form>
+  <button [disabled]="!registerForm.valid" (click)="showBasicDialog()">Preview Invoice</button>
+
+
+</div>
+
+<p-dialog header="Signature"  [responsive]="true"
+ [(visible)]="displayBasic1">
+
+  <ng-signature-pad [width]="600"  doneButtonText="Submit" format="base64"  (done)="showImage($event)">
+  </ng-signature-pad>
+
+
+</p-dialog>

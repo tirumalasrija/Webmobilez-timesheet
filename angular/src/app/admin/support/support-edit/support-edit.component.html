@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12">
+            <h4 class="remove-margin">Edit  Detail </h4>
+            <div class="card">
+              <div class="card-header">
+                <!-- <h5 class="card-title">Edit Profile</h5> -->
+              </div>
+              <div class="card-body">
+                <form [formGroup]="updateUser" (ngSubmit)="updateUserDetails()">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Question</label>
+                        <textarea formControlName="question" class="form-control"> </textarea>
+
+                        <div *ngIf="question.invalid && (question.dirty || question.touched)" class="form-text text-muted">
+                          <div *ngIf="question.errors?.required">
+                            Question is required.
+                          </div>
+                          <div *ngIf="question.errors?.minlength">
+                            Question must be at least 10 characters long.
+                          </div>
+                        </div>
+                        <small id="questionHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.question }}</small>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Answer</label>
+                        <textarea formControlName="answer" class="form-control"> </textarea>
+
+                        <div *ngIf="answer.invalid && (answer.dirty || answer.touched)" class="form-text text-muted">
+                          <div *ngIf="answer.errors?.required">
+                            Answer is required.
+                          </div>
+                          <div *ngIf="answer.errors?.minlength">
+                            Answer must be at least 10 characters long.
+                          </div>
+                        </div>
+                        <small id="answerHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.answer }}</small>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+                    <div class="row">
+                      <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary btn-round" [disabled]="!updateUser.valid">Update</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+</div>

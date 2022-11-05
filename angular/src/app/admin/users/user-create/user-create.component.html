@@ -1,107 +1,384 @@
 <div class="row">
-        <div class="col-md-12">
-                <h4 class="remove-margin">Add New User Detail </h4>
-                <div class="card">
-                  <div class="card-header">
-                    <!-- <h5 class="card-title">Edit Profile</h5> -->
+  <div class="col-md-12">
+    <h4 class="remove-margin">Add New User Detail </h4>
+    <div class="card">
+      <div class="card-header">
+        <!-- <h5 class="card-title">Edit Profile</h5> -->
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+              <label>Employee</label>
+              <select  (change)="firstDropDownChanged($event.target.value)" tooltipPosition="top" class="form-control" >
+                <option value="" selected="selected">--Select Employee--</option>
+                <option *ngFor="let order of employees" [value]="order.reportId">
+                    {{order.consultatName}} {{order.consultantLastName}}</option>
+            </select>
+
+
+          </div>
+      </div>
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="First Name" required>
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="form-text text-muted">
+                  <div *ngIf="name.errors?.required">
+                    Name is required.
                   </div>
-                  <div class="card-body">
-                    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group">
-                              <label>First Name</label>
-                              <input type="text" formControlName="name" class="form-control" placeholder="First Name" required>
-                              <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                                      class="form-text text-muted">
-                                    <div *ngIf="name.errors?.required">
-                                      Name is required.
-                                    </div>
-                                    <div *ngIf="name.errors?.minlength">
-                                      Name must be at least 5 characters long.
-                                    </div>
-                              </div>
-                              <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.name }}</small>
+                  <div *ngIf="name.errors?.minlength">
+                    Name must be at least 5 characters long.
+                  </div>
+                </div>
+                <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.name }}</small>
 
-                              </div>
-                          </div>
-                      </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" required>
+                <div *ngIf="name.invalid && (lastName.dirty || lastName.touched)" class="form-text text-muted">
+                  <div *ngIf="lastName.errors?.required">
+                    Last Name is required.
+                  </div>
+                  <div *ngIf="lastName.errors?.minlength">
+                    Last Name must be at least 1 characters long.
+                  </div>
+                </div>
+                <small id="lastNameHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.lastName
+                  }}</small>
 
-                        <div class="row">
-                          <!-- <div class="col-md-6 pr-1">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" formControlName="companyName" class="form-control" placeholder="Company Name"
+                  required>
+                <div *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="companyName.errors?.required">
+                    Company Name is required.
+                  </div>
+
+                </div>
+                <small id="companyNameHelp" class="form-text text-muted" *ngIf="serverErrors">{{
+                  serverErrors.companyName }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Join Date</label>
+                <input type="date" formControlName="joinDate" class="form-control" >
+                <div *ngIf="joinDate.invalid && (joinDate.dirty || joinDate.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="joinDate.errors?.required">
+                    Join Date is required.
+                  </div>
+
+                </div>
+                <small id="joinDateHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.joinDate
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Technology</label>
+                <input type="text" formControlName="technology" class="form-control" placeholder="Technology" required>
+                <div *ngIf="technology.invalid && (technology.dirty || technology.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="technology.errors?.required">
+                    technology is required.
+                  </div>
+
+                </div>
+                <small id="technologyHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.technology
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Rate</label>
+                <input type="number" formControlName="rate" class="form-control" placeholder="Rate" required>
+                <div *ngIf="rate.invalid && (rate.dirty || rate.touched)" class="form-text text-muted">
+                  <div *ngIf="rate.errors?.required">
+                    rate is required.
+                  </div>
+
+                </div>
+                <small id="rateHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.rate }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Total Hours per week</label>
+                <input type="text" formControlName="hoursperWeek" class="form-control"
+                  placeholder="Total Hours per week" required>
+                <div *ngIf="hoursperWeek.invalid && (hoursperWeek.dirty || hoursperWeek.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="hoursperWeek.errors?.required">
+                    Total hours perWeek is required.
+                  </div>
+
+                </div>
+                <small id="hoursperWeekHelp" class="form-text text-muted" *ngIf="serverErrors">{{
+                  serverErrors.hoursperWeek }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Role</label>
+                <select formControlName="role" class="form-control">
+                  <option value="">Choose Role</option>
+                  <option value="Admin"> Admin</option>
+                  <option value="User">Employee(1099)</option>
+                  <option value="UserW">Employee(w2)</option>
+                  <option value="Consultant">Consultant</option>
+                </select>
+                <div *ngIf="role.invalid && (role.dirty || role.touched)" class="form-text text-muted">
+                  <div *ngIf="role.errors?.required">
+                    Role is required.
+                  </div>
+
+                </div>
+                <small id="roleHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.role }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Payment Type</label>
+                <select formControlName="paymentType" class="form-control">
+                  <option value="">Choose Payment Type</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Bi-weekly"> Bi-weekly</option>
+                  <option value="Monthly">Monthly</option>
+                </select>
+                <div *ngIf="paymentType.invalid && (paymentType.dirty || paymentType.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="paymentType.errors?.required">
+                    Payment Type is required.
+                  </div>
+
+                </div>
+                <small id="roleHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.paymentType
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Payment Mode</label>
+                <select formControlName="paymentMode" class="form-control">
+                  <option value="">Choose Payment Moode</option>
+                  <option value="Net 30"> Net 30</option>
+                  <option value="Net 35">Net 35</option>
+                  <option value="Net 45">Net 45</option>
+                  <option value="Net 50">Net 50</option>
+                  <option value="Net 55">Net 55</option>
+                </select>
+                <div *ngIf="paymentMode.invalid && (paymentMode.dirty || paymentMode.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="paymentMode.errors?.required">
+                    paymentMode is required.
+                  </div>
+
+                </div>
+                <small id="paymentHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.paymentMode
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Address1</label>
+                <input type="text" formControlName="address" class="form-control" placeholder="Address1" required>
+                <div *ngIf="address.invalid && (address.dirty || address.touched)" class="form-text text-muted">
+                  <div *ngIf="address.errors?.required">
+                    Address1 is required.
+                  </div>
+
+                </div>
+                <small id="addressHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.address
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Address2</label>
+                <input type="text" formControlName="address1" class="form-control" placeholder="Address2" >
+                <div *ngIf="address1.invalid && (address1.dirty || address1.touched)" class="form-text text-muted">
+
+
+                </div>
+                <small id="address1Help" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.address1
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" formControlName="city" class="form-control" placeholder="city" required>
+                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="form-text text-muted">
+                  <div *ngIf="city.errors?.required">
+                    city is required.
+                  </div>
+
+                </div>
+                <small id="cityHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.city }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>State</label>
+                <select formControlName="state" class="form-control" required>
+                  <option value="">-Select State-</option>
+                  <option *ngFor="let count of countryList" value="{{count.name}}">{{count.name}} </option>
+                </select>
+
+                <div *ngIf="state.invalid && (state.dirty || state.touched)" class="form-text text-muted">
+                  <div *ngIf="state.errors?.required">
+                    state is required.
+                  </div>
+
+                </div>
+                <small id="stateHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.state }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Zip Code</label>
+                <input type="text" formControlName="zipcode" class="form-control" placeholder="zipcode" required>
+                <div *ngIf="zipcode.invalid && (zipcode.dirty || zipcode.touched)" class="form-text text-muted">
+                  <div *ngIf="zipcode.errors?.required">
+                    zipcode is required.
+                  </div>
+
+                </div>
+                <small id="zipcodeHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.zipcode
+                  }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="col-md-6 pr-1">
                             <div class="form-group">
                               <label>User Name</label>
                               <input type="text" class="form-control" placeholder="Username">
                             </div>
                           </div> -->
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Email address</label>
-                              <input type="email" formControlName="email" class="form-control" placeholder="Email" required>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" formControlName="email" class="form-control" placeholder="Email" required>
 
-                              <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                                      class="form-text text-muted">
-                                    <div *ngIf="email.errors?.required">
-                                      Email is required.
-                                    </div>
-                                    <div *ngIf="email.errors?.email">
-                                      Invalid email address.
-                                    </div>
-                              </div>
-
-                              <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.email }}</small>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group">
-                              <label>Password</label>
-                              <input type="password" formControlName="password" class="form-control" placeholder="Password" required>
-
-                              <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                                      class="form-text text-muted">
-                                    <div *ngIf="password.errors?.required">
-                                      Password is required.
-                                    </div>
-                                    <div *ngIf="password.errors?.minlength">
-                                      Password must be at least 5 characters long.
-                                    </div>
-                              </div>
-
-                              <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.password }}</small>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group">
-                              <label>Confirm Password</label>
-                              <input type="password" formControlName="confirm_password" class="form-control" placeholder="Confirm Password" required>
-
-                              <div *ngIf="confirm_password.invalid && (confirm_password.dirty || confirm_password.touched)"
-                                      class="form-text text-muted">
-                                    <div *ngIf="confirm_password.errors?.required">
-                                      Confirm Password is required.
-                                    </div>
-                                    <div *ngIf="confirm_password.errors?.minlength">
-                                      Confirm Password must be at least 5 characters long.
-                                    </div>
-                              </div>
-
-                              <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.confirm_password }}</small>
-                              </div>
-                          </div>
-                      </div>
-
-                        <div class="row">
-                          <div class="update ml-auto mr-auto">
-                            <button type="submit" class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Register User</button>
-                          </div>
-                        </div>
-                      </form>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="form-text text-muted">
+                  <div *ngIf="email.errors?.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email.errors?.email">
+                    Invalid email address.
                   </div>
                 </div>
+
+                <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.email }}</small>
               </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder="Password" required>
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="form-text text-muted">
+                  <div *ngIf="password.errors?.required">
+                    Password is required.
+                  </div>
+                  <div *ngIf="password.errors?.minlength">
+                    Password must be at least 5 characters long.
+                  </div>
+                </div>
+
+                <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.password
+                  }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" formControlName="confirm_password" class="form-control"
+                  placeholder="Confirm Password" required>
+
+                <div *ngIf="confirm_password.invalid && (confirm_password.dirty || confirm_password.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="confirm_password.errors?.required">
+                    Confirm Password is required.
+                  </div>
+                  <div *ngIf="confirm_password.errors?.minlength">
+                    Confirm Password must be at least 5 characters long.
+                  </div>
+                </div>
+
+                <small id="emailHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.confirm_password
+                  }}</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Register
+                User</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

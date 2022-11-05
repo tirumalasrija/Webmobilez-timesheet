@@ -6,6 +6,9 @@ import { UserIndexComponent } from './user-index/user-index.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserDocumentCreateComponent } from './userdocuments/user-documents-create/user-create.component';
+import { UserDocumentEditComponent } from './userdocuments/user-documents-edit/user-edit.component';
+import { UserDocumentListComponent } from './userdocuments/user-documents-list/user-document-list.component';
 import { UserRestService } from './user-rest.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -32,7 +35,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import {InplaceModule} from 'primeng/inplace';
 
 @NgModule({
-  declarations: [UserIndexComponent, UserCreateComponent, UserEditComponent,UserListComponent],
+  declarations: [UserIndexComponent, UserCreateComponent, UserEditComponent,UserListComponent,UserDocumentCreateComponent,UserDocumentEditComponent,UserDocumentListComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

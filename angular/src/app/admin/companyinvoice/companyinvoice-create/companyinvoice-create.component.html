@@ -1,0 +1,191 @@
+<p-dialog header="Invoice" [(visible)]="displayBasic" [baseZIndex]="10000">
+
+  <div class="table-responsive table-bordered" id="tablecontent">
+   <div style="margin: 20px;"><img class="rounded mx-auto d-block" src="../../assets/img/group.png"></div>
+    <table class="table table-bordered">
+      <thead>
+
+      </thead>
+      <tbody>
+        <tr>
+          <th colspan="5">Customer/Client Name</th>
+          <th colspan="2" rowspan>Invoice No. {{registerForm.value.invoiceNumber}}</th>
+          <th colspan="2" rowspan>Date:{{registerForm.value.date}}</th>
+        </tr>
+
+        <tr>
+          <td colspan="5"><span *ngIf="changeUserData"><strong>{{changeUserData?.companyName}}</strong><br />
+            Address: {{changeUserData?.address}}, {{changeUserData?.address1}} {{changeUserData?.state}} {{changeUserData?.city}} {{changeUserData?.zipcode}}</span></td>
+          <td colspan="2"  class="text-right" rowspan>Payment Due Date</td>
+          <td colspan="2" rowspan> {{extradate | date:'d-MMM-y'}}
+          </td>
+        </tr>
+        <tr>
+          <th colspan="5">Supplier's Name<br /></th>
+          <td  colspan="4" rowspan></td>
+
+        </tr>
+        <tr>
+          <td colspan="5"><strong>WebmobileZ Inc</strong><br>
+            24906 ravine ct, Farmington hills MI 48335</td>
+            <td  colspan="4" rowspan></td>
+
+        </tr>
+        <tr>
+
+          <td colspan="5"><strong>Description of Goods/Services</strong></td>
+          <td rowspan>Quantity</td>
+          <td rowspan>Rate</td>
+          <td rowspan>UOM</td>
+          <td rowspan>Amount ( in $) </td>
+        </tr>
+        <tr>
+
+          <td colspan="5">Services of Venkat Ponnekanti from {{registerForm.value.date| date:'d MMM y'}} to
+            {{extradate | date:'d MMM y'}}</td>
+            <td rowspan>{{registerForm.value.hours}}</td>
+            <td rowspan>
+              <span class="ui-inputgroup-addon">$</span>{{registerForm.value.rate}}
+
+            <td rowspan></td>
+            <td rowspan>
+              <span class="ui-inputgroup-addon">$</span>{{registerForm.value.amount}}
+            </td>
+        </tr>
+        <tr>
+          <td class="text-right" colspan="5">Total Amount<br /></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>${{registerForm.value.amount}}</td>
+        </tr>
+        <tr>
+          <p>Amount chargeable (In Words) - {{registerForm.value.amount | numberToWords}}</p>
+          #NAME?<br>
+          <br>
+          <strong>Please remit payment to:</strong>
+          <p>Please include the invoice number on all payments</p>
+          <p>Please send all your payments to the following bank account:</p>
+          <p>Bank Account Number: 375016284053</p>
+          <p>Bank Routing Number: 072000805</p>
+          <p>Bank: Bank of America</p>
+        </tr>
+        <tr>
+          <br>
+          <br>
+          THANK YOU FOR YOUR BUSINESS!
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+  </div>
+  <button (click)="generatePDF()">Create Invoice</button>
+</p-dialog>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" style="padding-bottom: 10px;">
+      <h6>Choose Employee</h6>
+      <select class="form-control"  (change)="searchReportSubmitId($event.target.value)">
+        <option value="">--Choose Employee--</option>
+        <option *ngFor="let option of usersChoose" [value]="option.id">
+          {{option.name}}  {{option.lastName}}
+        </option>
+
+      </select>
+
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="padding-bottom: 10px;">
+<div class="table-responsive table-bordered" id="tablecontent">
+  <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+    <table class="table table-bordered">
+      <thead>
+
+
+      </thead>
+      <tbody>
+        <tr>
+          <th colspan="5">Customer/Client Name</th>
+          <th  colspan="2" rowspan>Invoice No.<input type="text" colspan="" formControlName="invoiceNumber"
+              class="form-control" disabled></th>
+          <th  colspan="2" rowspan >Date: <input type="date" (change)="somethingChanged($event)" [ngModel]="BDate | date:'yyyy-MM-dd'" class="form-control"
+              formControlName="date"></th>
+        </tr>
+        <tr>
+          <td colspan="5"><span *ngIf="changeUserData"><strong>{{changeUserData?.companyName}}</strong><br />
+            Address: {{changeUserData?.address}}, {{changeUserData?.address1}} {{changeUserData?.state}} {{changeUserData?.city}} {{changeUserData?.zipcode}}</span></td>
+          <td colspan="2" class="text-right" rowspan>Payment Due Date</td>
+          <td colspan="2" rowspan> {{extradate | date:'d-MMM-y'}}
+          </td>
+        </tr>
+        <tr>
+          <th colspan="5">Supplier's Name<br /></th>
+          <td colspan="4" rowspan></td>
+
+        </tr>
+        <tr>
+          <td colspan="5"><strong>WebmobileZ Inc</strong><br>
+            24906 ravine ct, Farmington hills MI 48335</td>
+            <td colspan="4" rowspan></td>
+
+        </tr>
+        <tr>
+
+          <td colspan="5"><strong>Description of Goods/Services</strong></td>
+          <td rowspan>Quantity</td>
+          <td rowspan>Rate</td>
+          <td rowspan>UOM</td>
+          <td rowspan>Amount ( in $) </td>
+        </tr>
+        <tr>
+
+          <td colspan="5">Services of {{changeUserData?.name}} {{changeUserData?.lastName}} from {{registerForm.value.date| date:'d MMM y'}} to
+            {{extradate | date:'d MMM y'}}</td>
+          <td rowspan><input type="number" formControlName="hours" class="form-control"></td>
+          <td rowspan>
+            <div class="ui-inputgroup"><span class="ui-inputgroup-addon">$</span><input type="number"
+                formControlName="rate" class="form-control" disabled></div>
+
+          <td rowspan></td>
+          <td rowspan>
+            <div class="ui-inputgroup"><span class="ui-inputgroup-addon">$</span><input type="number"
+                formControlName="amount" class="form-control" disabled></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" colspan="5">Total Amount<br /></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>${{registerForm.value.amount}}</td>
+        </tr>
+        <tr>
+          <p>Amount chargeable (In Words) - {{registerForm.value.amount | numberToWords}}</p>
+          #NAME?<br>
+          <br>
+          <strong>Please remit payment to:</strong>
+          <p>Please include the invoice number on all payments</p>
+          <p>Please send all your payments to the following bank account:</p>
+          <p>Bank Account Number: 375016284053</p>
+          <p>Bank Routing Number: 072000805</p>
+          <p>Bank: Bank of America</p>
+        </tr>
+        <tr>
+          <br>
+          <br>
+          THANK YOU FOR YOUR BUSINESS!
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <button [disabled]="!registerForm.valid" (click)="showBasicDialog()">Preview Invoice</button>
+
+
+</div>
+</div>
+</div>
+

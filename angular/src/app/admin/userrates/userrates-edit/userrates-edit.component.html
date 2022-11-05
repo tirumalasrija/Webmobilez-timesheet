@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-12">
+            <h4 class="remove-margin">Edit  Detail </h4>
+            <div class="card">
+              <div class="card-header">
+                <!-- <h5 class="card-title">Edit Profile</h5> -->
+              </div>
+              <div class="card-body">
+                <form [formGroup]="updateUser" (ngSubmit)="updateUserDetails()">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h6>Choose Employee</h6>
+                          <select class="form-control" formControlName="userId">
+                            <option value="">--Choose Employee--</option>
+                            <option *ngFor="let option of usersChoose" [value]="option.id">
+                              {{option.name}}  {{option.lastName}}
+                            </option>
+
+                          </select>
+                          <div *ngIf="userId.invalid && (userId.dirty || userId.touched)" class="form-text text-muted">
+                            <div *ngIf="userId.errors?.required">
+                              Employee is required.
+                            </div>
+                          </div>
+                        </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Rate</label>
+                        <input type="number"  formControlName="rate" class="form-control">
+
+                        <div *ngIf="rate.invalid && (rate.dirty || rate.touched)" class="form-text text-muted">
+                          <div *ngIf="rate.errors?.required">
+                            Rate is required.
+                          </div>
+
+                        </div>
+                        <small id="answerHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.rate }}</small>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+                    <div class="row">
+                      <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary btn-round" [disabled]="!updateUser.valid">Update</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+</div>

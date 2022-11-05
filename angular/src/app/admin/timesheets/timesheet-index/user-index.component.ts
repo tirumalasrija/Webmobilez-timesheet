@@ -26,7 +26,7 @@ export class UserIndexComponent implements OnInit {
         this.items = [
             {label: 'Timesheets', icon: 'pi pi-fw pi-home',routerLink:['/timesheets/list']},
             {label: 'Documents', icon: 'pi pi-fw pi-file-o',routerLink:['/timesheets/documents']},
-            {label: 'Add TimeSheet', icon: 'pi pi-fw pi-calendar',routerLink:['/timesheets/create']},
+         //   {label: 'Add TimeSheet', icon: 'pi pi-fw pi-calendar',routerLink:['/timesheets/create']},
         ];
         this.activeItem = this.items[0];
 

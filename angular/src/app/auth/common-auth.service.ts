@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class CommonAuthService {
   loggedIn = false;
 
   registerUser(form: any){
-    console.log(form.value);
-    return this.http.post('https://employees.webmobilez.com/public/api/register', form.value);
+   
+    return this.http.post(`${environment.api}/register`, form.value);
   }
 
    isAuthonticated(){
@@ -35,12 +36,12 @@ export class CommonAuthService {
   }
 
   logIn(form: any): Observable<any>{
-    return this.http.post('https://employees.webmobilez.com/public/api/login', form.value);
+    return this.http.post(`${environment.api}/login`, form.value);
     //return result;
   }
 
   logout(token: any): Observable<any>{
-    return this.http.post('https://employees.webmobilez.com/public/api/logout', {'token': token});
+    return this.http.post(`${environment.api}/logout`, {'token': token});
     //return result;
   }
 }

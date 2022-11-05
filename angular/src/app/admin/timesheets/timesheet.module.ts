@@ -73,6 +73,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [UserIndexComponent, TimesheetCreateComponent, UserEditComponent, UserListComponent, TimesheetDocumentsComponent],
@@ -130,7 +131,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatTreeModule,
     OverlayModule,
     PortalModule,
-    ScrollingModule
+    ScrollingModule,RadioButtonModule
   ],
   providers: [
     TimesheetRestService

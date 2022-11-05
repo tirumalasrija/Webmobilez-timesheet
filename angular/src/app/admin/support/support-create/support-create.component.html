@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="remove-margin">Add FAQ </h4>
+    <div class="card">
+      <div class="card-header">
+        <!-- <h5 class="card-title">Edit Profile</h5> -->
+      </div>
+      <div class="card-body">
+
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Question</label>
+                <textarea formControlName="name" class="form-control"> </textarea>
+
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="form-text text-muted">
+                  <div *ngIf="name.errors?.required">
+                    Question is required.
+                  </div>
+                  <div *ngIf="name.errors?.minlength">
+                    Question must be at least 10 characters long.
+                  </div>
+                </div>
+                <small id="questionHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.name }}</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Answer</label>
+                <textarea formControlName="answer" class="form-control"> </textarea>
+
+                <div *ngIf="answer.invalid && (answer.dirty || answer.touched)" class="form-text text-muted">
+                  <div *ngIf="answer.errors?.required">
+                    Answer is required.
+                  </div>
+                  <div *ngIf="answer.errors?.minlength">
+                    Answer must be at least 10 characters long.
+                  </div>
+                </div>
+                <small id="answerHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.answer }}</small>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Add FAQ</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

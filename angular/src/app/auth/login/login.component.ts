@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit {
   get password(){ return this.loginForm.get('password'); }
 
   login(){
-    console.log(this.loginForm);
+    
     this.auth.logIn(this.loginForm).subscribe(
       (response) => {
-        console.log(response.token);
+     
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.setItem('token', response.token);
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         this.serverErrors = error.error;
-        console.log(this.serverErrors);
+        
       }
     );
   }

@@ -1,0 +1,164 @@
+<div class="row">
+  <div class="col-md-12">
+          <h4 class="remove-margin">Edit </h4>
+          <div class="card">
+            <div class="card-header">
+              <!-- <h5 class="card-title">Edit Profile</h5> -->
+            </div>
+            <div class="card-body">
+              <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <label>User Name</label>
+                        <select  (change)="firstDropDownChanged()" tooltipPosition="top" class="form-control" formControlName="userId">
+                          <option value="" selected="selected">--Select Employee--</option>
+                          <option *ngFor="let order of users" [value]="order.id">
+                              {{order.name}} {{order.lastName}}</option>
+                      </select>
+
+
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="rate">
+                  <div class="col-md-12">
+                    <label>Rate</label>
+                    <input class="form-control" type="number" value="{{rate}}" readonly>
+
+                  </div>
+                 </div>
+                 <div class="row" *ngIf="companyName">
+                  <div class="col-md-12">
+                    <label>Company Name</label>
+                    <input class="form-control" type="text" value="{{companyName}}" readonly>
+                  </div>
+                 </div>
+
+
+                 <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Hours</label>
+                      <input type="number" formControlName="hours" class="form-control" placeholder="Hours" required>
+
+                      <div *ngIf="hours.invalid && (hours.dirty || hours.touched)"
+                              class="form-text text-muted">
+                            <div *ngIf="hours.errors?.required">
+                              Amount is required.
+                            </div>
+
+                      </div>
+
+                      <small id="hoursHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.hours }}</small>
+                    </div>
+                  </div>
+                </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Amount</label>
+                        <input type="number" formControlName="amount" class="form-control" placeholder="Amount" required>
+
+                        <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+                                class="form-text text-muted">
+                              <div *ngIf="amount.errors?.required">
+                                Amount is required.
+                              </div>
+
+                        </div>
+
+                        <small id="amountHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.amount }}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Transfer date</label>
+                        <input type="date" formControlName="transferDate" class="form-control" placeholder="Amount" required>
+
+                        <div *ngIf="transferDate.invalid && (transferDate.dirty || transferDate.touched)"
+                                class="form-text text-muted">
+                              <div *ngIf="transferDate.errors?.required">
+                                transferDate is required.
+                              </div>
+
+                        </div>
+
+                        <small id="transferDateHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.transferDate }}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Confirmation Number</label>
+                        <input type="text" formControlName="confirmationNumber" class="form-control" placeholder="confirmationNumber" required>
+
+                        <div *ngIf="confirmationNumber.invalid && (confirmationNumber.dirty || confirmationNumber.touched)"
+                                class="form-text text-muted">
+                              <div *ngIf="confirmationNumber.errors?.required">
+                                confirmationNumber is required.
+                              </div>
+
+                        </div>
+
+                        <small id="confirmationNumberHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.confirmationNumber }}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label>Payment Type(Credit Or Debit)</label>
+                        <select class="form-control" formControlName="type">
+                          <option value="" selected>--Select--</option>
+                          <option value="C" >Credit</option>
+                          <option value="D" >Debit</option>
+                      </select>
+                      <div *ngIf="type.invalid && (type.dirty || type.touched)"
+                      class="form-text text-muted">
+                    <div *ngIf="type.errors?.required">
+                      Type is required.
+                    </div>
+
+              </div>
+
+              <small id="typeHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.type }}</small>
+                        </div>
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label>Payment Status</label>
+                        <select class="form-control" formControlName="paymentStatus">
+                          <option value="" selected>--Select--</option>
+                          <option value="Paid" >Paid</option>
+                          <option value="Progress" >Progress</option>\
+                          <option value="To be pay" > To be pay</option>
+                      </select>
+                      <div *ngIf="paymentStatus.invalid && (paymentStatus.dirty || paymentStatus.touched)"
+                      class="form-text text-muted">
+                    <div *ngIf="paymentStatus.errors?.required">
+                      paymentStatus is required.
+                    </div>
+
+              </div>
+
+              <small id="paymentStatusHelp" class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.paymentStatus }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="row">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round" [disabled]="!disableBtn" [disabled]="!registerForm.valid">Submit</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+</div>

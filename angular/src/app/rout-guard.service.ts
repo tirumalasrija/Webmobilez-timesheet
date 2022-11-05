@@ -20,8 +20,7 @@ export class RouteGuardService {
   			if(authSuccess){
           if ( role != expectedRole ) {
 
-            console.log("role"+role)
-            console.log("expected role"+expectedRole)
+            
             this.router.navigate(['/dashboard']);
 
           }

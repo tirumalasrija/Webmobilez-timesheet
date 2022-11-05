@@ -1,5 +1,6 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 .text-muted{
   color: red !important;
 }

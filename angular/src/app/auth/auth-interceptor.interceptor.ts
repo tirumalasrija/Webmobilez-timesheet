@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
     });
     }
     const requestChange = req.clone({headers});
-    console.log(requestChange);
+   
     return next.handle(requestChange);
   }
 }

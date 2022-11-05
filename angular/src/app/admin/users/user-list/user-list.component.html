@@ -1,64 +1,114 @@
 <div class="row">
   <div class="col-md-12">
-          <h4 class="remove-margin"> Users Detail </h4>
+    <h4 class="remove-margin"> Users Detail </h4>
     <div class="card">
       <div class="card-header">
         <!-- <div class="float-right"> -->
-          <a routerLink="/users/create" class="btn btn-info btn-sm">Add New</a>
+        <a routerLink="/users/create" class="btn btn-info btn-sm">Add New</a>
         <!-- </div> -->
       </div>
       <div class="card-body">
-        <p-table #dt [value]="timeSheets" dataKey="id"
-        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[6,12]" [loading]="loading" styleClass="p-datatable-customers"
-        [paginator]="false"
-        [filterDelay]="0" [globalFilterFields]="['fromDate','duration','assignment','serviceCode']">
+        <p-table #dt [value]="timeSheets" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[6,12]" [loading]="loading" styleClass="p-datatable-customers" [paginator]="false"
+          [filterDelay]="0" [globalFilterFields]="['fromDate','duration','assignment','serviceCode']">
 
-        <ng-template pTemplate="header">
+          <ng-template pTemplate="header">
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Created At</th>
-                <th>Action</th>
+              <th>Employee Full Name</th>
+              <th>Vendor Name</th>
+              <th>Prime Vendor Name</th>
+              <th>End Client Name</th>
+              <th>Company Email ID</th>
+              <th>Joined Date </th>
+              <th>Role </th>
+             <!-- <th>Created At</th> -->
+              <th>Action</th>
             </tr>
 
-        </ng-template>
-        <ng-template pTemplate="body" let-customer>
+          </ng-template>
+          <ng-template pTemplate="body" let-customer>
             <tr>
               <td>
-                {{customer.name}}
+                {{customer.name}} {{customer.lastName}}
               </td>
-                <td>
-                    {{customer.email}}
-                </td>
-                <td>
-                   {{customer.role}}
-                </td>
-                <td>
-                  {{customer.created_at | date}}
-               </td>
-               <td>
-               <a (click)="editUser(customer.id)"  class="btn btn-warning btn-sm">Edit</a>
-               </td>
+              <td>
+                -
+              </td>
+              <td>
+               -
+              </td>
+              <td>
+                {{customer.companyName}}
+              </td>
+              <td>
+                {{customer.companyEmail}}
+              </td>
+
+              <td>
+                {{customer.joinDate | date}}
+              </td>
+              <td>
+                <span *ngIf="customer.role=='User'">1099</span>
+                <span *ngIf="customer.role=='UserW'">W2</span>
+                <span *ngIf="customer.role=='Consultant'">Consultant</span>
+                <span *ngIf="customer.role=='Admin'">Admin</span>
+              </td>
+             <!--  <td>
+                {{customer.created_at | date}}
+              </td> -->
+              <td>
+                <a (click)="editUser(customer.id)" class="btn btn-warning btn-sm">Edit</a>
+                <a (click)="showBasicDialog(customer)" class="btn btn-warning btn-sm">View</a>
+                <a (click)="deleteUser(customer.id)" class="btn btn-warning btn-sm">Delete</a>
+              </td>
             </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="6">No Users found.</td>
+              <td colspan="6">No Users found.</td>
             </tr>
-        </ng-template>
-    </p-table>
+          </ng-template>
+        </p-table>
 
       </div>
     </div>
   </div>
 </div>
 
-<p-inplace >
-  <ng-template pTemplate="display">
-      Click to Edit
-  </ng-template>
-  <ng-template pTemplate="content">
-      <input type="text" value="PrimeNG" pInputText>
-  </ng-template>
-</p-inplace>
+<p-dialog header="View User Details" [(visible)]="displayBasic" [baseZIndex]="10000">
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th scope="col">Full Name</th>
+        <th scope="col">Employee Email</th>
+        <th scope="col">Contact Number</th>
+        <th scope="col">Emergency Number</th>
+        <th scope="col">Emergency Contact Person</th>
+        <th scope="col">Name of Relation</th>
+        <th scope="col">Address</th>
+        <th scope="col">Rate</th>
+        <th scope="col">Payment Type</th>
+        <th scope="col">Payment Mode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+
+        <td>{{fullname}}</td>
+        <td>{{email}}</td>
+        <td>{{contactNumber}}</td>
+        <td>{{emergencyNumber}}</td>
+        <td>{{emrgencyContactPerson}}</td>
+        <td>{{relationContactPerson}}</td>
+        <td>{{address}}</td>
+        <td>{{urate}}</td>
+        <td>{{paymentType}}</td>
+        <td>{{paymentMode}}</td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+</p-dialog>

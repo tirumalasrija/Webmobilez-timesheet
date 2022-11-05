@@ -1,0 +1,14 @@
+<div class="row" *ngIf="documentDetails?.documentFile">
+  <div class="col-md-12">
+    <h4 class="remove-margin"> {{documentDetails?.documentType}} - Document </h4>
+    <div class="card">
+      <div class="card-header">
+        <!-- <h5 class="card-title">Edit Profile</h5> -->
+      </div>
+      <div class="card-body" >
+        <embed [src]="url | safe"  style="width: 100%;height: 500px"
+          type="application/pdf">
+      </div>
+    </div>
+  </div>
+</div>

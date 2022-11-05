@@ -3,7 +3,7 @@
   <div class="logo">
 
     <a routerLink="/dashboard" class="simple-text logo-normal">
-     Employee Portal
+      Portal
     </a>
   </div>
     <ul class="nav">
@@ -22,7 +22,7 @@
                 </p>
           </a>
           <a *ngIf="!menuItem.childMenu" [routerLink]="[menuItem.path]">
-            <i class="nc-icon {{menuItem.icon}}"></i>
+            <i class="{{menuItem.icon}}" aria-hidden="true"></i>
             <p>{{menuItem.title}}</p>
           </a>
 

@@ -1,0 +1,69 @@
+:host ::ng-deep .p-button {
+  margin: 0 .5rem 0 0;
+  min-width: 10rem;
+}
+
+p {
+  margin: 0;
+}
+
+.confirmation-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-dialog .p-button {
+  min-width: 6rem;
+}
+pcard{
+margin-right: 20px
+}
+.invoice-head td {
+padding: 0 8px;
+}
+.container {
+padding-top:30px;
+}
+.invoice-body{
+background-color:transparent;
+}
+.invoice-thank{
+margin-top: 60px;
+padding: 5px;
+}
+address{
+margin-top:15px;
+}
+p-dialog .ui-dialog {
+  overflow: scroll;
+  max-height: 70%;
+}
+.signature-pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 400px;
+  height: 200px;
+}
+canvas{
+  width:187
+}
+.signature_pad {
+  width: 700px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.signature_pad_body canvas {
+  width: 100% !important;
+  height: 100%;
+  border: dotted #444;
+  background: #CCCCCC;
+}
+
+canvas {
+  height: 100vh !important;
+  width: 100vw!important;
+  display: block !important;
+}

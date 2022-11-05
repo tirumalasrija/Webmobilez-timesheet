@@ -3,5 +3,6 @@ export interface Product {
   fromDate?:string;
   duration?:string;
   assignment?:string;
+  timeSheetType?:string;
   serviceCode?:string;
 }

@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="remove-margin">Add Document to Employee </h4>
+    <div class="card">
+      <div class="card-header">
+        <!-- <h5 class="card-title">Edit Profile</h5> -->
+      </div>
+      <div class="card-body">
+        <form [formGroup]="registerForm" >
+          <div class="row">
+            <div class="col-md-12">
+
+              <label>User Name</label>
+              <select (change)="firstDropDownChanged()" tooltipPosition="top" class="form-control"
+                formControlName="userId">
+                <option value="" selected="selected">--Select Employee--</option>
+                <option *ngFor="let order of users" [value]="order.id">
+                  {{order.name}} {{order.lastName}}</option>
+              </select>
+
+
+            </div>
+          </div>
+
+          <div class="row" *ngIf="rate">
+            <div class="col-md-12">
+              <label>Rate</label>
+              <input class="form-control" type="number" value="{{rate}}" readonly>
+
+            </div>
+          </div>
+          <div class="row" *ngIf="companyName">
+            <div class="col-md-12">
+              <label>Company Name</label>
+              <input class="form-control" type="text" value="{{companyName}}" readonly>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Document Type</label>
+                <input type="text" formControlName="documentType" class="form-control" placeholder="documentType"
+                  required>
+                <div *ngIf="documentType.invalid && (documentType.dirty || documentType.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="documentType.errors?.required">
+                    Document Type is required.
+                  </div>
+                </div>
+                <small id="cdocumentTypeHelp" class="form-text text-muted" *ngIf="serverErrors">{{
+                  serverErrors.documentType }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form- ">
+                <label for="exampleInputEmail1">File</label>
+                <input [disabled]="!registerForm.valid" type="file" class="form-control" (change)="imagesPreviewWorkAuth($event)">
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

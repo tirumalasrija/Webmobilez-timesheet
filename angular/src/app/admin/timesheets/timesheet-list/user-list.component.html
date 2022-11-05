@@ -1,42 +1,25 @@
-
 <div class="row text-center">
   <div class="col-md-12">
     <h3 class="mb-0">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
   </div>
   <div class="col-md-12">
     <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (click) ="dayHeaderClicked($event)"
-
-      >
-      <i class="pi pi-chevron-left"></i>
-      </div>
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-        (click) ="dayHeaderClicked($event)"
-      >
+      <button class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        (click)="dayHeaderClicked($event)" [disabled]="prevBtnDisabled">
+        <i class="pi pi-chevron-left"></i>
+      </button>
+      <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate"
+        (click)="dayHeaderClicked($event)">
         Current Week
       </div>
-      <div
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-(click) ="dayHeaderClicked($event)"
-
-      >
-      <i class="pi pi-chevron-right"></i>
-      </div>
+      <button class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (click)="dayHeaderClicked($event)">
+        <i class="pi pi-chevron-right"></i>
+      </button>
     </div>
   </div>
 </div>
- <!-- <p-table #dt [value]="timeSheets" dataKey="id"
+<!-- <p-table #dt [value]="timeSheets" dataKey="id"
           [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[6,12]" [loading]="loading" styleClass="p-datatable-customers"
           [paginator]="false"
           [filterDelay]="0" [globalFilterFields]="['fromDate','duration','assignment','serviceCode']">
@@ -91,77 +74,189 @@
           </ng-template>
       </p-table> -->
 
-      <p-toast position="bottom-right"></p-toast>
+<p-toast position="bottom-right"></p-toast>
 
+<div class="card">
+  <div class="row">
+    <div class="col-md-12">
       <div class="card">
-          <p-table [loading]="loading" styleClass="p-datatable-customers" [value]="timeSheets" dataKey="timeSheetId" editMode="row" >
-              <ng-template pTemplate="header">
-                  <tr>
-                    <th>Date</th>
-                      <th>Duration</th>
-                      <th>Assignment</th>
-                      <th>Service Code</th>
-                      <th >Action</th>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-custom let-editing="editing" let-ri="rowIndex">
-                  <tr [pEditableRow]="custom">
-                    <td >
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <input pInputText type="date"   [max]="tomorrow" [(ngModel)]="custom.fromDate" >
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{custom.fromDate | date}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
+        <div class="card-header">
+          <!-- <h5 class="card-title">Edit Profile</h5> -->
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+            <div class="ui-g" style="width:260px;margin-bottom:10px">
+              <div class="ui-g-4"><p-radioButton formControlName="groupname" (click)="changeStatus($event)" name="group2" value="onduty" label="Working" ></p-radioButton></div>
+              <div class="ui-g-4"><p-radioButton formControlName="groupname" (click)="changeStatus($event.target.value)" name="group2"  value="leave" label="Leave" ></p-radioButton></div>
+              <div class="ui-g-4"><p-radioButton formControlName="groupname" (click)="changeStatus($event.target.value)" name="group2"  value="holiday" label="Holiday" ></p-radioButton></div>
+          </div>
 
-                      <td >
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="custom.duration">
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{custom.duration}}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Duration</label>
+                  <input class="form-control" [disabled]="disabled" type="number" min="1" max="15" placeholder="Duration"
+                    formControlName="duration">
+                  <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="form-text text-muted">
+                    <div *ngIf="duration.errors?.required">
+                      Duration is required.
+                    </div>
+                    <div *ngIf="duration.errors?.min">Enter Min 1 hour Duration </div>
+                    <div *ngIf="duration.errors?.max">Enter Max 15 hour Duration only </div>
+                  </div>
+                  <small id="emailHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{
+                    serverErrors.duration }}</small>
 
-                    <td >
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown [options]="assignments" [(ngModel)]="custom.assignment" [style]="{'width':'100%'}"></p-dropdown>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{custom.assignment}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td >
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <p-dropdown [options]="serviceCodes" [(ngModel)]="custom.serviceCode" [style]="{'width':'100%'}"></p-dropdown>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{custom.serviceCode}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
-                      <td style="text-align:center">
-                          <button  *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(custom)" class="p-button-rounded p-button-text "></button>
-                          <button   *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(custom,ri)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-                          <button   *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(custom, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                      </td>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="6">No Timesheet found.</td>
-                </tr>
-            </ng-template>
-          </p-table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Date</label>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <input [max]="tomorrow" [min]="yesterday" [matDatepicker]="picker" class="form-control"
+                    placeholder="Choose a date of birth" formControlName="date" id="date" readonly
+                    (click)="picker.open()">
+
+                  <mat-datepicker #picker></mat-datepicker>
+
+
+                  <div *ngIf="date.invalid && (date.dirty || date.touched)" class="form-text text-muted">
+                    <div *ngIf="date.errors?.required">
+                      Date is required.
+                    </div>
+                  </div>
+                  <small id="dateHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{
+                    serverErrors.date }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Assignment</label>
+                  <input type="text" formControlName="assignment" pTooltip="Assignment" tooltipPosition="top"
+                    class="form-control" disabled />
+                  <!--   <select  formControlName="assignment"  pTooltip="Choose your Assignment" tooltipPosition="top" class="form-control"  required>
+                    <option value="Mainframe Developer" selected="selected">Mainframe Developer</option>
+                  </select> -->
+
+                  <div *ngIf="assignment.invalid && (assignment.dirty || assignment.touched)"
+                    class="form-text text-muted">
+                    <div *ngIf="assignment.errors?.required">
+                      Assignment is required.
+                    </div>
+                  </div>
+                  <small id="assignmentHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{
+                    serverErrors.assignment }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Service Code</label>
+                  <select formControlName="serviceCode" pTooltip="Choose your Service code" tooltipPosition="top"
+                    class="form-control" required>
+                    <option value="Regular" selected="selected">Regular</option>
+                  </select>
+
+                  <div *ngIf="serviceCode.invalid && (serviceCode.dirty || serviceCode.touched)"
+                    class="form-text text-muted">
+                    <div *ngIf="serviceCode.errors?.required">
+                      Assignment is required.
+                    </div>
+                  </div>
+                  <small id="serviceCodeHelp" class="form-text text-muted servererrord" *ngIf="serverErrors">{{
+                    serverErrors.serviceCode }}</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
+    </div>
+  </div>
+  <p-table [loading]="loading" styleClass="p-datatable-customers" [value]="timeSheets" dataKey="timeSheetId"
+    editMode="row">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Assignment</th>
+        <th>Service Code</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-custom let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="custom" [ngStyle]="{'background-color':getColor(custom.timeSheetType,custom.duration)}">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="date" [max]="tomorrow" [(ngModel)]="custom.fromDate">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{custom.fromDate | date}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
 
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="custom.duration">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{(custom.duration==0 && custom.timeSheetType=='leave')?'Leave':''}}
+              {{(custom.duration==0 && custom.timeSheetType=='holiday')?'Holiday':''}}
+              {{( custom.duration>0)?custom.duration:''}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
 
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="custom.assignment">
 
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{custom.assignment}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="serviceCodes" [(ngModel)]="custom.serviceCode" [style]="{'width':'100%'}">
+              </p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{custom.serviceCode}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+            (click)="onRowEditInit(custom)" class="p-button-rounded p-button-text "></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+            (click)="onRowEditSave(custom,ri)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+            (click)="onRowEditCancel(custom, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">No Timesheet found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

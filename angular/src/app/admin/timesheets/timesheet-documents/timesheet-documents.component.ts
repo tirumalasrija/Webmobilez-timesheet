@@ -81,7 +81,7 @@ export class TimesheetDocumentsComponent implements OnInit {
     let actualYear = this.viewDate.getFullYear();
     let formattedDate = actualDate + '-' + actualMonth + '-' + actualYear;
     this.userRest.getTimeDocuments(formattedDate).subscribe(
-      (response) => { console.log(this.documents = response.documents); this.path = response.path; this.loading = false; },
+      (response) => {  this.documents = response.documents; this.path = response.path; this.loading = false; },
       (error) => { console.log(error) }
     );
   }
@@ -155,14 +155,14 @@ export class TimesheetDocumentsComponent implements OnInit {
       this.timeSheetDisable =true;
     }
     this.userRest.getTimeDocuments(formattedDate).subscribe(
-      (response) => { console.log(this.documents = response.documents); this.path = response.path; this.loading = false; },
+      (response) => {  this.documents = response.documents; this.path = response.path; this.loading = false; },
       (error) => { console.log(error) }
     );
   }
   onSelect(event) {
 
     this.files.push(...event.addedFiles);
-    console.log(this.files);
+   
     let actualDate = this.viewDate.getDate();
     let actualMonth = this.viewDate.getMonth() + 1;
     let actualYear = this.viewDate.getFullYear();

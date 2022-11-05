@@ -1,23 +1,51 @@
 <h4 class="remove-margin"> Timesheet Documents </h4>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+  <h6>Choose Employee</h6>
+      <select class="form-control" [(ngModel)]="userselect" (change)="searchReportSubmitId($event.target.value)">
+        <option value="">--Choose Employee--</option>
+        <option *ngFor="let option of users" [value]="option.id">
+          {{option.name}}  {{option.lastName}}
+        </option>
+
+      </select>
+
+    </div>
+    <div class="col-md-4">
+      <h6>Choose Month</h6>
+      <p-calendar  [(ngModel)]="date12" (onSelect)="searchByDateReportSubmitId()" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
+     <!-- <p-calendar [(ngModel)]="date12" (onSelect)="searchByDateReportSubmitId()"  view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"></p-calendar>
+     -->
+    </div>
+    <div class="col-md-2">
+      <h6>Clear</h6>
+      <button (click)="clearFilters()">Clear Fields</button>
+
+    </div>
+  </div>
+</div>
+<h6 *ngIf="totalHours">Total Hours :{{totalHours}}</h6>
 <p-table #dt [value]="timeSheets" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
   [rowsPerPageOptions]="[5,10,20,30]" [loading]="loading" styleClass="p-datatable-customers" [paginator]="true"
-  [filterDelay]="0" [globalFilterFields]="['user_details.name','dateOfWeek']">
+  [filterDelay]="0" [globalFilterFields]="['name','startWeek']">
 
   <ng-template pTemplate="header">
     <tr>
-      <th>Employee</th>
-      <th>Date</th>
+      <th [style]="{'width':'300px'}">Employee</th>
+      <th>Start Date</th>
+      <th>End Date</th>
       <th>Document</th>
-
+      <th>Created At</th>
     </tr>
     <tr>
       <th>
-        <input pInputText type="text" (input)="dt.filter($event.target.value, 'user_details.name', 'startsWith')"
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'name', 'startsWith')"
           placeholder="Search by Employee" class="p-column-filter">
       </th>
       <th>
-        <p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'dateOfWeek', 'equals')"
-          [showButtonBar]="true" styleClass="p-column-filter" placeholder="Date" [readonlyInput]="true"
+        <p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'startWeek', 'equals')"
+          [showButtonBar]="true" [style]="{'width':'300px'}" styleClass="p-column-filter" placeholder="Date" [readonlyInput]="true"
           dateFormat="yy-mm-dd"></p-calendar>
       </th>
 
@@ -27,11 +55,14 @@
   </ng-template>
   <ng-template pTemplate="body" let-customer>
     <tr>
-      <td>
-        {{customer.user_details.name}}
+      <td >
+        {{customer.name}}
       </td>
       <td>
-        {{customer.dateOfWeek | date}}
+        {{customer.startWeek | date}}
+      </td>
+      <td>
+        {{customer.endWeek | date}}
       </td>
       <td>
         <a target="_blank"
@@ -39,7 +70,9 @@
           download>Download</a>
 
       </td>
-
+      <td>
+        {{customer.created_at | date}}
+      </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">

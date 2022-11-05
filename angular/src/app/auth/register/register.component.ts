@@ -31,13 +31,13 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
     this.auth.registerUser(this.registerForm).subscribe(success => {
-      //console.log(success);
+      
       this.route.navigate(['home/login']);
 
     },error => { 
         //console.log(error);
         this.serverErrors = error.error.errors;
-        console.log(this.serverErrors);
+       
         ;
     });
   }

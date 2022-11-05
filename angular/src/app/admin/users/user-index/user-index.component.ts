@@ -27,7 +27,7 @@ export class UserIndexComponent implements OnInit {
 
   ngOnInit() {
      this.userRest.getUsers().subscribe(
-     (response) => { console.log(this.userList = response.user);  this.loading = false; },
+     (response) => {  this.userList = response.user;  this.loading = false; },
      (error) => { console.log(error) }
     );
 

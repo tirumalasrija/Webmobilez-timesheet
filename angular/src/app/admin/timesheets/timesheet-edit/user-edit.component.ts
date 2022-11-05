@@ -28,7 +28,7 @@ export class UserEditComponent implements OnInit {
       (error) => console.log(error)
     );
 
-      console.log(this.data);
+     
 
       this.updateUser = new FormGroup({
         'duration': new FormControl(null,[Validators.required]),
@@ -46,7 +46,7 @@ export class UserEditComponent implements OnInit {
     let id = this.route.snapshot.params.id;
     this.userRest.updateTimeSheet(this.updateUser,id).subscribe(
       (response) => {
-        console.log(response),
+        
         this.router.navigate(['timesheets/list'])
       },
       (error) => console.log(error),

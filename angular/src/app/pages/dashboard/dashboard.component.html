@@ -1,2 +1,179 @@
-<h4 class="remove-margin">DashBoard</h4>
+<p-dialog header="Payment Details" [resizable]="true" [(visible)]="displayBasic" [style]="{width: '50vw'}"
+  [baseZIndex]="10000">
+  <button (click)="generatePDF()" [disabled]="!address">Download PDF</button>
+  <div class="container" id="contentToConvert">
+    <h6>{{name}}'s INVOICE</h6>
+    <div class="table-bordered" id="tablecontent">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="4">Confirmation Number: {{confirmationNumber}}<br /></th>
+            <th colspan="4">Transfer Date :{{transferdate|date}}</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4"> <strong>Address</strong> : <span *ngIf="address">{{address}} {{address1}}, {{state}},
+                {{city}}, {{zipcode}}.</span><br /></td>
+            <th colspan="4">Invoice For : {{fromDate|date}} - {{toDate|date}}</th>
+
+          </tr>
+          <tr>
+            <td class="text-right" colspan="2"><strong>Payment Type</strong></td>
+            <td rowspan colspan="2"><strong>Date of Transfer</strong></td>
+            <td rowspan colspan="2"><strong>Hours</strong></td>
+            <td rowspan colspan="2"> <strong>Amount</strong></td>
+
+          </tr>
+          <tr>
+            <td class="text-right" colspan="2">{{paymentType}}</td>
+            <td rowspan colspan="2">{{transferdate|date}}</td>
+            <td rowspan colspan="2">{{hours}}</td>
+            <td rowspan colspan="2">${{amount}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayBasic=false" label="Yes" styleClass="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayBasic=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>
+
+<div class="container" *ngIf="menuexpectedrole=='Admin'">
+  <div class="row">
+
+    <div class="col-lg-4">
+      <label> Employee </label>
+      <select class="form-control" (change)="searchReportSubmit($event.target.value)">
+        <option value="">--Choose Employee--</option>
+        <option *ngFor="let option of users" [value]="option.id">
+          {{option.name}} {{option.lastName}}
+        </option>
+
+      </select>
+    </div>
+
+    <div class="container">
+      <h2>Payment Report</h2>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>Date</th>
+            <th>Invoice For</th>
+            <th>Account Name</th>
+            <th>Vendor Client</th>
+            <th>Payment Type</th>
+            <th>Hours</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of timeSheets; let myIndex = index">
+            <td>{{item.transferDate|date}}</td>
+            <td>{{item.fromDate|date}} to {{item.toDate|date}}</td>
+            <td>{{item.user_details.name}} {{item.user_details.lastName}}</td>
+            <td>{{item.user_details.companyName}}</td>
+            <td>{{item.user_details.paymentType}}</td>
+            <td>{{item.hours}}</td>
+            <td><span *ngIf="item.type == 'C'">${{item.amount}}</span></td>
+            <td><span *ngIf="item.type == 'D'">${{item.amount}}</span></td>
+            <td><button *ngIf="item.type == 'D'" (click)="showBasicDialog(item.paymentId)"
+                class="btn btn-warning btn-sm"> <i class="fa fa-eye" aria-hidden="true"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="(menuexpectedrole=='User' || menuexpectedrole=='UserW')">
+  <div class="row">
+    <h2>Payment Report</h2>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>Date</th>
+          <th>Invoice For</th>
+          <th>Account Name</th>
+          <th>Vendor Client</th>
+          <th>Payment Type</th>
+          <th>Hours</th>
+          <th>Payment Paid</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of timeSheets; let myIndex = index">
+          <td>{{item.transferDate|date}}</td>
+          <td>{{item.fromDate|date}} to {{item.toDate|date}}</td>
+          <td>{{item.user_details.name}} {{item.user_details.lastName}}</td>
+          <td>{{item.user_details.companyName}}</td>
+          <td>{{item.user_details.paymentType}}</td>
+          <td>{{item.hours}}</td>
+          <td>${{item.amount}}</td>
+          <td> <button (click)="showBasicDialog(item.paymentId)" class="btn btn-warning btn-sm"> <i class="fa fa-eye"
+                aria-hidden="true"></i></button></td>
+
+
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+    <!-- <div class="col-lg-4" style="marging:10px" *ngFor="let item of timeSheets; let myIndex = index">
+      <p-card [style]="{width: '360px'}" styleClass="p-card-shadow">
+        <h6>Employee Name : {{item.user_details.name}} {{item.user_details.lastName}}</h6>
+        <h5> Date of Payment:<br> {{item.transferDate|date}} </h5>
+        <h6>Hours : {{item.hours}}</h6>
+        <h6>Invoice For : {{item.fromDate|date}} to {{item.toDate|date}}</h6>
+        <h6>Net Payment : ${{item.amount}}</h6>
+        <h6>Payment Type : {{item.user_details.paymentType}} </h6>
+      <button (click)="showBasicDialog(item.paymentId)"  class="btn btn-warning btn-sm"> <i class="fa fa-eye" aria-hidden="true"></i></button>
+     </p-card>
+    </div>-->
+
+
+
+  </div>
+</div>
+<div class="container" *ngIf="menuexpectedrole=='Consultant'">
+  <div class="row">
+    <h2>Job Submissions</h2>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>Interview Date</th>
+          <!--   <th>Vendor Company Name</th> -->
+          <th>Client Name</th>
+          <th>End Client Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of schedules; let myIndex = index">
+          <td>{{item.scheduleDate|date}}</td>
+          <!--    <td>{{item.vendorCompanyName}} </td> -->
+          <td>{{item.endClientName}}</td>
+          <td>{{item.endClientLocation}}</td>
+          <td>{{item.vendorStatus}}</td>
+
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<div class="container" *ngIf="menuexpectedrole=='UserW'">
+  <h2>Time Sheets</h2>
+  <div class="ct-chart" id="chart" ></div>
+</div>
 
