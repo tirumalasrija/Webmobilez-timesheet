@@ -57,7 +57,7 @@ class PassportController extends Controller
 
         if (auth()->attempt($credentials)) {
             $token = auth()->user()->createToken('WebZportal')->accessToken;
-            return response()->json(['token' => $token,'role'=>Auth::user()->role ], 200);
+            return response()->json(['token' => $token,'role'=>Auth::user()->role], 200);
         } else {
             return response()->json(['error' => 'Invalid Email or Password. Please try agian'], 401);
         }

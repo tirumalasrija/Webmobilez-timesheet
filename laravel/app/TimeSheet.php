@@ -17,7 +17,7 @@ class TimeSheet extends Model
 	protected $primaryKey = 'timeSheetId';
 
 	protected $fillable = [
-		'duration','fromDate','assignment','serviceCode','userId'
+		'duration','fromDate','assignment','serviceCode','userId','timeSheetType'
 	];
     public function user_details()
     {
